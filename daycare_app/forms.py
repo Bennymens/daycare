@@ -1,6 +1,6 @@
 from django import forms
 
-class BookingForm(forms.Form):
+class ContactForm(forms.Form):
     name = forms.CharField(max_length=100, label='', widget=forms.TextInput(attrs={'class': 'form-control py-2 py-md-3 mb-3 mb-md-4 border-primary', 'placeholder': 'Your Name'}))
     email = forms.EmailField(label='', widget=forms.EmailInput(attrs={'class': 'form-control py-2 py-md-3 mb-3 mb-md-4 border-primary', 'placeholder': 'Enter Your Email'}))
     phone = forms.CharField(max_length=20, label='', widget=forms.TextInput(attrs={'class': 'form-control py-2 py-md-3 mb-3 mb-md-4 border-primary', 'placeholder': 'Your Phone Number'}))

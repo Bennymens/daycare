@@ -1,9 +1,11 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Little Lamb Babysitting - Programs</title>
+    <title>
+      {% block title %}BabyCare - Daycare Website Template{% endblock %}
+    </title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
@@ -12,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Montserrat:wght@200;400;600&display=swap%}"
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Montserrat:wght@200;400;600&display=swap"
       rel="stylesheet"
     />
 
@@ -22,26 +24,28 @@
       href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
     />
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css%}"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
       rel="stylesheet"
     />
 
     <!-- Libraries Stylesheet -->
-    <link href="{% static 'lib/animate/animate.min.css%}" rel="stylesheet" />
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet" />
     <link
-      href="{% static 'lib/lightbox/css/lightbox.min.css%}"
+      href="{% static 'lib/lightbox/css/lightbox.min.css' %}"
       rel="stylesheet"
     />
     <link
-      href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css%}"
+      href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}"
       rel="stylesheet"
     />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{% static 'css/bootstrap.min.css%}" rel="stylesheet" />
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
 
     <!-- Template Stylesheet -->
-    <link href="{% static 'css/style.css%}" rel="stylesheet" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+
+    {% block extra_css %}{% endblock %}
   </head>
 
   <body>
@@ -67,11 +71,13 @@
           <div class="top-info ps-2">
             <small class="me-3"
               ><i class="fas fa-map-marker-alt me-2 text-secondary"></i>
-              <a href="#" class="text-white">123 Street, New York</a></small
+              <a href="#" class="text-white">Home services</a></small
             >
             <small class="me-3"
               ><i class="fas fa-envelope me-2 text-secondary"></i
-              ><a href="#" class="text-white">Email@Example.com</a></small
+              ><a href="#" class="text-white"
+                >littlelambbabysitting01@gmail.com</a
+              ></small
             >
           </div>
           <div class="top-link pe-2">
@@ -92,9 +98,9 @@
       </div>
       <div class="container px-0">
         <nav class="navbar navbar-light navbar-expand-xl py-3">
-          <a href="index.html" class="navbar-brand"
+          <a href="{% url 'index' %}" class="navbar-brand"
             ><h1 class="text-primary display-6">
-              Baby<span class="text-secondary">Care</span>
+              Little Lamb<span class="text-secondary">Babysitting</span>
             </h1></a
           >
           <button
@@ -107,30 +113,26 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto">
-              <a href="index.html" class="nav-item nav-link">Home</a>
-              <a href="about.html" class="nav-item nav-link">About</a>
-              <a href="service.html" class="nav-item nav-link">Services</a>
-              <a href="program.html" class="nav-item nav-link active"
-                >Programs</a
+              <a
+                href="{% url 'index' %}"
+                class="nav-item nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}"
+                >Home</a
               >
-              <a href="event.html" class="nav-item nav-link">Events</a>
-              <div class="nav-item dropdown">
-                <a
-                  href="#"
-                  class="nav-link dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  >Pages</a
-                >
-                <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                  <a href="blog.html" class="dropdown-item">Our Blog</a>
-                  <a href="team.html" class="dropdown-item">Our Team</a>
-                  <a href="testimonial.html" class="dropdown-item"
-                    >Testimonial</a
-                  >
-                  <a href="404.html" class="dropdown-item">404 Page</a>
-                </div>
-              </div>
-              <a href="contact.html" class="nav-item nav-link">Contact</a>
+              <a
+                href="{% url 'about' %}"
+                class="nav-item nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
+                >About</a
+              >
+              <a
+                href="{% url 'service' %}"
+                class="nav-item nav-link {% if request.resolver_match.url_name == 'service' %}active{% endif %}"
+                >Service</a
+              >
+              <a
+                href="{% url 'contact' %}"
+                class="nav-item nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}"
+                >Contacts</a
+              >
             </div>
             <div class="d-flex me-4">
               <div
@@ -153,9 +155,7 @@
               <div class="d-flex flex-column pe-3 border-end border-primary">
                 <span class="text-primary">Have any questions?</span>
                 <a href="#"
-                  ><span class="text-secondary"
-                    >Free: (+233) 559 528 857</span
-                  ></a
+                  ><span class="text-secondary">(+233) 559 52 8857</span></a
                 >
               </div>
             </div>
@@ -211,235 +211,25 @@
     </div>
     <!-- Modal Search End -->
 
-    <!-- Page Header Start -->
-    <div
-      class="container-fluid page-header py-5 wow fadeIn"
-      data-wow-delay="0.1s"
-    >
-      <div class="container text-center py-5">
-        <h1 class="display-2 text-white mb-4">Programs</h1>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb justify-content-center mb-0">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Pages</a></li>
-            <li class="breadcrumb-item text-white" aria-current="page">
-              Programs
-            </li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-    <!-- Page Header End -->
-
-    <!-- Programs Start -->
-    <div class="container-fluid program py-5">
-      <div class="container py-5">
-        <div
-          class="mx-auto text-center wow fadeIn"
-          data-wow-delay="0.1s"
-          style="max-width: 700px"
-        >
-          <h4
-            class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius"
-          >
-            Our Programs
-          </h4>
-          <h1 class="mb-5 display-3">We Offer An Exclusive Program For Kids</h1>
-        </div>
-        <div class="row g-5 justify-content-center">
-          <div
-            class="col-md-6 col-lg-6 col-xl-4 wow fadeIn"
-            data-wow-delay="0.1s"
-          >
-            <div class="program-item rounded">
-              <div class="program-img position-relative">
-                <div class="overflow-hidden img-border-radius">
-                  <img
-                    src="img/program-1.jpg"
-                    class="img-fluid w-100"
-                    alt="Image"
-                  />
-                </div>
-                <div class="px-4 py-2 bg-primary text-white program-rate">
-                  $60.99
-                </div>
-              </div>
-              <div class="program-text bg-white px-4 pb-3">
-                <div class="program-text-inner">
-                  <a href="#" class="h4">English For Today</a>
-                  <p class="mt-3 mb-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec sed purus consectetur,
-                  </p>
-                </div>
-              </div>
-              <div
-                class="program-teacher d-flex align-items-center border-top border-primary bg-white px-4 py-3"
-              >
-                <img
-                  src="img/program-teacher.jpg"
-                  class="img-fluid rounded-circle p-2 border border-primary bg-white"
-                  alt="Image"
-                  style="width: 70px; height: 70px"
-                />
-                <div class="ms-3">
-                  <h6 class="mb-0 text-primary">Mary Mordern</h6>
-                  <small>Arts Designer</small>
-                </div>
-              </div>
-              <div
-                class="d-flex justify-content-between px-4 py-2 bg-primary rounded-bottom"
-              >
-                <small class="text-white"
-                  ><i class="fas fa-wheelchair me-1"></i> 30 Sits</small
-                >
-                <small class="text-white"
-                  ><i class="fas fa-book me-1"></i> 11 Lessons</small
-                >
-                <small class="text-white"
-                  ><i class="fas fa-clock me-1"></i> 60 Hours</small
-                >
-              </div>
-            </div>
-          </div>
-          <div
-            class="col-md-6 col-lg-6 col-xl-4 wow fadeIn"
-            data-wow-delay="0.3s"
-          >
-            <div class="program-item rounded">
-              <div class="program-img position-relative">
-                <div class="overflow-hidden img-border-radius">
-                  <img
-                    src="img/program-2.jpg"
-                    class="img-fluid w-100"
-                    alt="Image"
-                  />
-                </div>
-                <div class="px-4 py-2 bg-primary text-white program-rate">
-                  $60.99
-                </div>
-              </div>
-              <div class="program-text bg-white px-4 pb-3">
-                <div class="program-text-inner">
-                  <a href="#" class="h4">Graphics Arts</a>
-                  <p class="mt-3 mb-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec sed purus consectetur,
-                  </p>
-                </div>
-              </div>
-              <div
-                class="program-teacher d-flex align-items-center border-top border-primary bg-white px-4 py-3"
-              >
-                <img
-                  src="img/program-teacher.jpg"
-                  class="img-fluid rounded-circle p-2 border border-primary bg-white"
-                  alt=""
-                  style="width: 70px; height: 70px"
-                />
-                <div class="ms-3">
-                  <h6 class="mb-0 text-primary">Mary Mordern</h6>
-                  <small>Arts Designer</small>
-                </div>
-              </div>
-              <div
-                class="d-flex justify-content-between px-4 py-2 bg-primary rounded-bottom"
-              >
-                <small class="text-white"
-                  ><i class="fas fa-wheelchair me-1"></i> 30 Sits</small
-                >
-                <small class="text-white"
-                  ><i class="fas fa-book me-1"></i> 11 Lessons</small
-                >
-                <small class="text-white"
-                  ><i class="fas fa-clock me-1"></i> 60 Hours</small
-                >
-              </div>
-            </div>
-          </div>
-          <div
-            class="col-md-6 col-lg-6 col-xl-4 wow fadeIn"
-            data-wow-delay="0.5s"
-          >
-            <div class="program-item rounded">
-              <div class="program-img position-relative">
-                <div class="overflow-hidden img-border-radius">
-                  <img
-                    src="img/program-3.jpg"
-                    class="img-fluid w-100"
-                    alt="Image"
-                  />
-                </div>
-                <div class="px-4 py-2 bg-primary text-white program-rate">
-                  $60.99
-                </div>
-              </div>
-              <div class="program-text bg-white px-4 pb-3">
-                <div class="program-text-inner">
-                  <a href="#" class="h4">General Science</a>
-                  <p class="mt-3 mb-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec sed purus consectetur,
-                  </p>
-                </div>
-              </div>
-              <div
-                class="program-teacher d-flex align-items-center border-top border-primary bg-white px-4 py-3"
-              >
-                <img
-                  src="img/program-teacher.jpg"
-                  class="img-fluid rounded-circle p-2 border border-primary bg-white"
-                  alt=""
-                  style="width: 70px; height: 70px"
-                />
-                <div class="ms-3">
-                  <h6 class="mb-0 text-primary">Mary Mordern</h6>
-                  <small>Arts Designer</small>
-                </div>
-              </div>
-              <div
-                class="d-flex justify-content-between px-4 py-2 bg-primary rounded-bottom"
-              >
-                <small class="text-white"
-                  ><i class="fas fa-wheelchair me-1"></i> 30 Sits</small
-                >
-                <small class="text-white"
-                  ><i class="fas fa-book me-1"></i> 11 Lessons</small
-                >
-                <small class="text-white"
-                  ><i class="fas fa-clock me-1"></i> 60 Hours</small
-                >
-              </div>
-            </div>
-          </div>
-          <div
-            class="d-inline-block text-center wow fadeIn"
-            data-wow-delay="0.1s"
-          >
-            <a
-              href="#"
-              class="btn btn-primary px-5 py-3 text-white btn-border-radius"
-              >Vew All Programs</a
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Program End -->
+    {% block content %}{% endblock %}
 
     <!-- Footer Start -->
     <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.1s">
+      <img
+        src="{% static 'img/background.jpg' %}"
+        alt="Footer Background"
+        class="footer-bg"
+      />
       <div class="container py-5">
         <div class="row g-5">
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="footer-item">
               <h2 class="fw-bold mb-3">
-                <span class="text-primary mb-0">Baby</span
-                ><span class="text-secondary">Care</span>
+                <span class="text-primary mb-0">Little Lamb Baby Sitting</span>
               </h2>
               <p class="mb-4">
-                There cursus massa at urnaaculis estieSed aliquamellus vitae
-                ultrs condmentum leo massamollis its estiegittis miristum.
+                Proverbs 22:6 Train up a child in the way he should go: and when
+                he is old he will not depart from it.
               </p>
               <div class="border border-primary p-3 rounded bg-light">
                 <h5 class="mb-3">Newsletter</h5>
@@ -487,12 +277,12 @@
               </h4>
               <div class="d-flex flex-column align-items-start">
                 <a href="" class="text-body mb-4"
-                  ><i class="fa fa-map-marker-alt text-primary me-2"></i> 104
-                  North tower New York, USA</a
+                  ><i class="fa fa-map-marker-alt text-primary me-2"></i> Home
+                  services</a
                 >
                 <a href="" class="text-start rounded-0 text-body mb-4"
                   ><i class="fa fa-phone-alt text-primary me-2"></i> (+233) 559
-                  528 857</a
+                  52 8857</a
                 >
                 <a href="" class="text-start rounded-0 text-body mb-4"
                   ><i class="fas fa-envelope text-primary me-2"></i>
@@ -540,9 +330,9 @@
                     class="footer-galary-img rounded-circle border border-primary"
                   >
                     <img
-                      src="img/galary-1.jpg"
+                      src="{% static 'img/galary-1.jpg' %}"
                       class="img-fluid rounded-circle p-2"
-                      alt=""
+                      loading="lazy" alt=""
                     />
                   </div>
                 </div>
@@ -551,9 +341,9 @@
                     class="footer-galary-img rounded-circle border border-primary"
                   >
                     <img
-                      src="img/galary-2.jpg"
+                      src="{% static 'img/galary-2.jpg' %}"
                       class="img-fluid rounded-circle p-2"
-                      alt=""
+                      loading="lazy" alt=""
                     />
                   </div>
                 </div>
@@ -562,9 +352,9 @@
                     class="footer-galary-img rounded-circle border border-primary"
                   >
                     <img
-                      src="img/galary-3.jpg"
+                      src="{% static 'img/galary-3.jpg' %}"
                       class="img-fluid rounded-circle p-2"
-                      alt=""
+                      loading="lazy" alt=""
                     />
                   </div>
                 </div>
@@ -573,9 +363,9 @@
                     class="footer-galary-img rounded-circle border border-primary"
                   >
                     <img
-                      src="img/galary-4.jpg"
+                      src="{% static 'img/galary-4.jpg' %}"
                       class="img-fluid rounded-circle p-2"
-                      alt=""
+                      loading="lazy" alt=""
                     />
                   </div>
                 </div>
@@ -584,9 +374,9 @@
                     class="footer-galary-img rounded-circle border border-primary"
                   >
                     <img
-                      src="img/galary-5.jpg"
+                      src="{% static 'img/galary-5.jpg' %}"
                       class="img-fluid rounded-circle p-2"
-                      alt=""
+                      loading="lazy" alt=""
                     />
                   </div>
                 </div>
@@ -595,9 +385,9 @@
                     class="footer-galary-img rounded-circle border border-primary"
                   >
                     <img
-                      src="img/galary-6.jpg"
+                      src="{% static 'img/galary-6.jpg' %}"
                       class="img-fluid rounded-circle p-2"
-                      alt=""
+                      loading="lazy" alt=""
                     />
                   </div>
                 </div>
@@ -616,15 +406,14 @@
           <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
             <span class="text-light"
               ><a href="#"
-                ><i class="fas fa-copyright text-light me-2"></i>Your Site
-                Name</a
+                ><i class="fas fa-copyright text-light me-2"></i>Little Lamb
+                Baby Sitting</a
               >, All right reserved.</span
             >
           </div>
-          <div class="col-md-6 my-auto text-center text-md-end text-white">
-            Designed By
-            <a class="border-bottom" href="#">Little Lamb Babysitting</a>
-          </div>
+          <div
+            class="col-md-6 my-auto text-center text-md-end text-white"
+          ></div>
         </div>
       </div>
     </div>
@@ -638,15 +427,16 @@
     ></a>
 
     <!-- JavaScript Libraries -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js%}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js%}"></script>
-    <script src="{% static 'lib/wow/wow.min.js%}"></script>
-    <script src="{% static 'lib/easing/easing.min.js%}"></script>
-    <script src="{% static 'lib/waypoints/waypoints.min.js%}"></script>
-    <script src="{% static 'lib/lightbox/js/lightbox.min.js%}"></script>
-    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js%}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/lightbox/js/lightbox.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
 
     <!-- Template Javascript -->
-    <script src="{% static 'js/main.js%}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
   </body>
 </html>
